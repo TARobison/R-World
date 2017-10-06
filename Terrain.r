@@ -3,22 +3,19 @@ make.terrain <- function(n){
     #will has n^2+1, but this doesn't always result in odd numbers, 
     #which makes diamond step hard
     dim <- (2^n)+1
-    #make sure that only squares can be made
     terrain <- matrix(nrow=dim, ncol=dim)
-    #make a list of random heights for corners
-    rcorner <- abs(rnorm(4,0,10))
+    rand.corner <- abs(rnorm(4,0,10))
     #subset the corners and give heights (there has to be a cool guy way to do this)
-    terrain[1,1] <- rcorner[1]
-    terrain[dim,1] <- rcorner[2]
-    terrain[dim,dim] <- rcorner[3]
-    terrain[1,dim] <- rcorner[4]
+    terrain[1,1] <- rand.corner[1]
+    terrain[dim,1] <- rand.corner[2]
+    terrain[dim,dim] <- rand.corner[3]
+    terrain[1,dim] <- rand.corner[4]
     return(terrain)
 }
 
 # Define the functions we'll use
 diamond.step <- function(mat){
     dim <- sqrt(length(mat))
-    # Calculate mean of corners
     corners <- c(mat[1,dim],mat[1,1],mat[dim,dim],mat[dim,1])
     corner.mean <- mean(corners)
     # Find the center of mat
@@ -50,13 +47,63 @@ square.step <- function(mat){
 # Put it all together
 proceed.gen <- function(n){
     terrain <- make.terrain(n)
-
+    terrain.size <- ncol(terrain)-1
     for (i in 2^(n: 1)){ #...hmmmm. How might this help?... 
         # Loop(s) through all the subsets of the matrix
-        terrain[] <- diamond.step(terrain[]) 
-        terrain[] <- square.step(terrain[])
-
+        spacing <- seq(1, terrain.size, by=i)
+        for(j in spacing){
+            for(k in spacing){
+                #cat(k,":",(k+i), "    ", j,":",(j+i),"\n")
+                terrain[k:(k+i),j:(j+i)] <- diamond.step(terrain[k:(k+i),j:(j+i)])
+                terrain[k:(k+i),j:(j+i)] <- square.step(terrain[k:(k+i),j:(j+i)])
+            }
+        }
+    }
                 
         return(terrain) 
 }
 proceed.gen(3)
+
+gus <- make.terrain(3)
+gus <- diamond.step(gus[1:9,1:9])
+gus <- square.step(gus[1:9,1:9])
+gus[1:5,1:5] <- diamond.step(gus[1:5,1:5])
+gus[1:5,1:5] <- square.step(gus[1:5,1:5])
+gus[1:3,1:3] <- diamond.step(gus[1:3,1:3])
+gus[1:3,1:3] <- square.step(gus[1:3,1:3])
+gus[1:5,1:5] <- diamond.step(gus[1:5,1:5])
+gus[1:5,1:5] <- square.step(gus[1:5,1:5])
+
+
+
+1 : 9
+1 : 5
+5 : 9
+1 : 3
+3 : 5
+5 : 7
+7 : 9
+
+
+
+1 : 9      1 : 9
+1 : 5      1 : 5
+5 : 9      1 : 5
+1 : 5      5 : 9
+5 : 9      5 : 9
+1 : 3      1 : 3
+3 : 5      1 : 3
+5 : 7      1 : 3
+7 : 9      1 : 3
+1 : 3      3 : 5
+3 : 5      3 : 5
+5 : 7      3 : 5
+7 : 9      3 : 5
+1 : 3      5 : 7
+3 : 5      5 : 7
+5 : 7      5 : 7
+7 : 9      5 : 7
+1 : 3      7 : 9
+3 : 5      7 : 9
+5 : 7      7 : 9
+7 : 9      7 : 9
