@@ -52,11 +52,29 @@ diamond.square.step <- function(n,sd){
                 terrain[k:(k+i),j:(j+i)] <- square.step(terrain[k:(k+i),j:(j+i)],sd)
             }
         }
-        sd <- sd * .25
+        sd <- sd * .75
     }
         return(terrain) 
 }
 
-terry <- diamond.square.step(6,20)
-image(terry,col=terrain.colors(3))
-dev.off()
+
+make.terrain.wrapper <- function(n, sd, water=TRUE){
+    
+    terry <- diamond.square.step(n,sd)
+    
+    if(water == TRUE)
+        terry[terry<0] <- NA
+    image(terry,col=terrain.colors(3))
+    dev.off()
+}
+make.terrain.wrapper(6,20)
+
+# wrapper.terrain <- function(n, sd, water=TRUE){
+    
+#     terry <- diamond.square.step(n,sd)
+    
+#     if(water == TRUE)
+#         terry[terry<0] <- NA
+#     image(terry,col=ifelse(terry[terry == NA], "blue", ifelse(terrain.colors(3))))
+#     dev.off()
+# }
