@@ -2,22 +2,21 @@ setup.plants <- function(repro, survive, comp.mat, names=NULL){
     if(is.null(names)) 
         names <- letters[seq_along(repro)]
     if(length(repro) != length(survive)) 
-        stop("Reproduction and survival parameters needed for all species")
-        #...some more tests...  
+        stop("Reproduction and survival parameters needed for all species") 
     if(nrow(comp.mat) != length(repro))
         stop("Comptetion matrix dimensions should be of equal length to the number of species")
     repro <- setNames(repro, names) 
     survive <- setNames(survive, names)
     colnames(comp.mat) <- names
     rownames(comp.mat) <- names
-    #...what does the line above do? Do you want more like it?  
     return(list(repro=repro, survive=survive, comp.mat=comp.mat, names=names))
 }
+
+
 comp.mat <- matrix(c(.7,.3,.3,.7),2,2)
 setup.plants(c(.4,.6), c(.6,.6),comp.mat)
 
-survive <- function(cell, info){ 
-#...some code to check whether cell is empty or has water... 
+survive <- function(cell, info){  
     if(cell == NA)
         cell <- NA
     if(runif(1) <= info$survive[plant]){ 
@@ -43,15 +42,18 @@ plant.timestep <- function(plants, terrain, info){
     return(plants)
 }
 
-run.plant.ecosystem <- function(terrain, timesteps=50, seed.fracs=c(.1, .1), repro=c(.4, .6), survive=c(.6,.6),names, comp.mat) 
-    # Setup plant array  
-    plants[,,1] <- terrain
-
-    info <- setup.plants(repro, survive, names, comp.mat) 
-    # Randomly distribute plants across the terrain 
-    
-    # ...
-    # Fill NAs in wherever there is water 
+run.plant.ecosystem <- function(terrain, comp.mat, timesteps=50, seed.fracs=c(.1, .1), repro=c(.4, .6), survive=c(.6,.6),names=NA){ 
+    plants <- array('', dim=c(ncol(terrain),nrow(terrain), timesteps))
+    info <- setup.plants(repro, survive, comp.mat, names) 
+    random.x.val <- sample(1:ncol(terrain),length(terrain)*.1)
+    random.y.val <- sample(1:ncol(terrain),length(terrain)*.1)
+    for(i in 1:length(random.x.val)){
+        choose.species <- sample(1:2,1)
+        if(choose.species == 1)
+            plants[random.x.val[i],random.y.val[i],1] <- info$names[[1]]
+        else
+            plants[random.x.val[i],random.y.val[i],1] <- info$names[[2]]
+    }
     for(i in seq_len(dim(plants)[3])){ 
         plants[,,i][is.na(terrain)] <- NA
     }
@@ -63,6 +65,7 @@ run.plant.ecosystem <- function(terrain, timesteps=50, seed.fracs=c(.1, .1), rep
     return(plants)
 }
 
+run.plant.ecosystem(terrain, comp.mat) 
 reproduce <- function(row, col, plants, info){
     possible.locations <- as.matrix(expand.grid(row+c(-1, 0, 1), col+c(-1, 0, 1)))
      #...now filter out which ones are not water-logged and reproduce there... 
