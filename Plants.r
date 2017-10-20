@@ -39,13 +39,13 @@ plant.timestep <- function(plants, terrain, info){
     }
     for(i in 1:nrow(terrain)){
         for(j in 1: ncol(terrain)){
-            plants[i,j] <- reproduce(i, j, plants, info)
+            plants <- reproduce(i, j, plants, info)
         }
     }
     return(plants)
 }
 
-run.plant.ecosystem <- function(terrain, comp.mat, timesteps=5, seed.fracs=c(.1, .1), repro=c(.4, .6), survive=c(.6,.6),names=NULL){ 
+run.plant.ecosystem <- function(terrain, comp.mat, timesteps=50, seed.fracs=c(.1, .1), repro=c(.4, .8), survive=c(.8,.65),names=NULL){ 
     plants <- array('', dim=c(ncol(terrain),nrow(terrain), timesteps))
     info <- setup.plants(repro, survive, comp.mat, names) 
     random.x.val <- sample(1:ncol(terrain),length(terrain)*.1)
@@ -65,28 +65,45 @@ run.plant.ecosystem <- function(terrain, comp.mat, timesteps=5, seed.fracs=c(.1,
     }
     return(plants)
 }
-
-
-reproduce <- function(row, col, plants, info){
-    possible.locations <- as.matrix(expand.grid(row+c(-1, 0, 1), col+c(-1, 0, 1)))
-    possible.locations <- na.omit(possible.locations)
-    #I think my problem here is that I need to filter out the zeros as well. 
-    #time to ask will for help on GH
-    if(plants[row,col] == '')
-        plants[row,col] <- ''
-    if(is.na(plants[row,col]))
-        plants[row,col] <- NA
-    if(plants[row, col] != ''){
-        browser()
-        choose.x <- sample(possible.locations[,1],1)
-        choose.y <- sample(possible.locations[,2],1)
-        plants[choose.x,choose.y] <- plants[row,col]
-    }
-    return(plants[row,col])
-}
 run.plant.ecosystem(terrain, comp.mat) 
 
+reproduce <- function(row, col, plants, info){
+    cell <- plants[row,col]
+    possible.locations <- as.matrix(expand.grid(row+c(-1, 0, 1), col+c(-1, 0, 1)))
+    possible.locations <- na.omit(possible.locations)
+    possible.locations <- actually.possible(row,col,possible.locations,plants)
+    if(is.na(cell))
+        cell <- NA
+    else{
+        if(cell == '')
+            cell <- ''
+        else if(runif(1) <= info$repro[cell]){
+            random.draw <- sample(1:nrow(possible.locations),1)
+            new.row <- possible.locations[random.draw,1]
+            new.col <- possible.locations[random.draw,2]
+            if(plants[new.row,new.col] != ''){
+                fight(plants, comp.mat, cell, info)
+            }else
+                plants[new.row,new.col] <- cell
+            return(plants)
+        }else{
+            cell <- ''
+        }
+    }
+    return(plants)
+}
 
-fight <- function(names, something, something){
-    sample(species_names, 1, prob=comp.mat[row,column])
+
+actually.possible <- function(row,col,possible.locations,plants){
+    for(i in nrow(possible.locations):1){
+        if(possible.locations[i,1] < 1 | possible.locations[i,1] > nrow(plants) | possible.locations[i,2] < 1 | possible.locations[i,2] > nrow(plants)){
+            possible.locations <- possible.locations[-i,]
+        }
+    }
+    return(possible.locations)
+}
+
+fight <- function(plants, comp.mat, cell, info){
+    cell <- sample(info$names, 1, prob=comp.mat[1,])
+    return(cell)
 }
