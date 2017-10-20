@@ -45,7 +45,7 @@ plant.timestep <- function(plants, terrain, info){
     return(plants)
 }
 
-run.plant.ecosystem <- function(terrain, comp.mat, timesteps=50, seed.fracs=c(.1, .1), repro=c(.4, .6), survive=c(.6,.6),names=NULL){ 
+run.plant.ecosystem <- function(terrain, comp.mat, timesteps=5, seed.fracs=c(.1, .1), repro=c(.4, .6), survive=c(.6,.6),names=NULL){ 
     plants <- array('', dim=c(ncol(terrain),nrow(terrain), timesteps))
     info <- setup.plants(repro, survive, comp.mat, names) 
     random.x.val <- sample(1:ncol(terrain),length(terrain)*.1)
@@ -60,13 +60,13 @@ run.plant.ecosystem <- function(terrain, comp.mat, timesteps=50, seed.fracs=c(.1
     for(i in seq_len(dim(plants)[3])){ 
         plants[,,i][is.na(terrain)] <- NA
     }
-    for(i in seq(2,timesteps+1)){ 
+    for(i in seq(2,timesteps)){ 
         plants[,,i] <- plant.timestep(plants[,,i-1], terrain, info)
     }
     return(plants)
 }
 
-run.plant.ecosystem(terrain, comp.mat) 
+
 reproduce <- function(row, col, plants, info){
     possible.locations <- as.matrix(expand.grid(row+c(-1, 0, 1), col+c(-1, 0, 1)))
     possible.locations <- na.omit(possible.locations)
@@ -76,13 +76,16 @@ reproduce <- function(row, col, plants, info){
         plants[row,col] <- ''
     if(is.na(plants[row,col]))
         plants[row,col] <- NA
-    else{
-        x <- sample(possible.locations[,1],1)
-        y <- sample(possible.locations[,2],1)
-        plants[x,y] <- plants[row,col]
+    if(plants[row, col] != ''){
+        browser()
+        choose.x <- sample(possible.locations[,1],1)
+        choose.y <- sample(possible.locations[,2],1)
+        plants[choose.x,choose.y] <- plants[row,col]
     }
     return(plants[row,col])
 }
+run.plant.ecosystem(terrain, comp.mat) 
+
 
 fight <- function(names, something, something){
     sample(species_names, 1, prob=comp.mat[row,column])
