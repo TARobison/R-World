@@ -1,4 +1,7 @@
-#' Make a terrain with lakes
+#' @title Terrain with elivations represented by numerics in each cell 
+#'
+#' @description Makes a matrix which is filled according to the diamond step algorithm.
+#' Altitude is represented by values in each cell. Cells with NA are waterlogged.
 #'
 #' This is a wrapper around \code{diamond.square.step} and \code{add.water}
 #' @param n Determines the size of the grid. Grid will be 2^n +1 with a default of n=6
@@ -11,7 +14,8 @@
 #' terry <- make.terrain(4, 15)
 #' image(terry)
 #'
-#'
+#'@export
+
 make.terrain <- function(n=6, water=TRUE, sd=15){
 
     make.terrain <- function(n){

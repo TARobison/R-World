@@ -1,5 +1,7 @@
-#' Generate plants to exist, reproduce, and compete within the terrain
+#' @title Generate plants to exist, reproduce, and compete within the terrain
 #'
+#' @description Simulates plants on a terrain which is built in
+#' terrain.r. Plants survive and reproduce in terrain that has a height 0 <= 
 #' Ensure that you have the same length of vectors for params repro, survive and names!!
 #' 
 #' @param repro The rate of reproduction of the listed plants. (default: .4,.8)
@@ -13,9 +15,8 @@
 #' @return a plant matrix; empty cells contain only '', waterlogged cells contain Na,  
 #'          and cells containing plants will have the indicated (or assigned) name. 
 #' @examples 
-#' plants <- make.plants(terrain, survive, reproduce, names)
-#' 
-#'
+#' plants <- make.plants(terrain, c(.7,.85), repro=c(.95,.55), names=NULL, 50)
+#' @export
 
 make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL, timesteps=50){
 
@@ -128,4 +129,3 @@ make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL,
     plant.plot <- run.plant.ecosystem(terrain, comp.mat, survive, repro, names, timesteps)
     return(plant.plot)
 }
-make.plants(make.terrain(3,15))
