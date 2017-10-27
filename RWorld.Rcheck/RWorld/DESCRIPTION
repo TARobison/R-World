@@ -1,0 +1,11 @@
+Package: RWorld
+Type: Package
+Title: R World Package
+Version: 1.0
+Date: 2017-10-26
+Author: Tanner Robison, God
+Maintainer: <yahboi_yaweh@yahwho.com>
+Description: This program makes a matrix to represent terrain, fills it with plants, breathes life into the unliving. 
+License: GPL-3
+RoxygenNote: 6.0.1
+Built: R 3.0.2; ; 2017-10-26 23:17:52 UTC; unix

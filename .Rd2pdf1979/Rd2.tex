@@ -1,0 +1,106 @@
+\documentclass[letterpaper]{book}
+\usepackage[times,inconsolata,hyper]{Rd}
+\usepackage{makeidx}
+\usepackage[utf8,latin1]{inputenc}
+% \usepackage{graphicx} % @USE GRAPHICX@
+\makeindex{}
+\begin{document}
+\chapter*{}
+\begin{center}
+{\textbf{\huge Package `RWorld'}}
+\par\bigskip{\large \today}
+\end{center}
+\begin{description}
+\raggedright{}
+\item[Type]\AsIs{Package}
+\item[Title]\AsIs{What the package does (short line)}
+\item[Version]\AsIs{1.0}
+\item[Date]\AsIs{2017-10-26}
+\item[Author]\AsIs{Who wrote it}
+\item[Maintainer]\AsIs{Who to complain to }\email{yourfault@somewhere.net}\AsIs{}
+\item[Description]\AsIs{More about what it does (maybe more than one line)}
+\item[License]\AsIs{What license is it under?}
+\item[RoxygenNote]\AsIs{6.0.1}
+\end{description}
+\Rdcontents{\R{} topics documented:}
+\inputencoding{utf8}
+\HeaderA{make.plants}{Generate plants to exist, reproduce, and compete within the terrain}{make.plants}
+%
+\begin{Description}\relax
+Simulates plants on a terrain which is built in
+terrain.r. Plants survive and reproduce in terrain that has a height 0 <= 
+Ensure that you have the same length of vectors for params repro, survive and names!!
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+make.plants(terrain, survive = c(0.7, 0.85), repro = c(0.95, 0.55),
+  names = NULL, timesteps = 50)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{survive}] The rate of survival of the listed plants. (default: .8, .65)
+Is a vector of length equal to the number of listed plants
+
+\item[\code{repro}] The rate of reproduction of the listed plants. (default: .4,.8)
+Is a vector of length equal to the number of listed plants
+
+\item[\code{names}] The names of listed plants. (defaul=NULL)
+If no names are provided, plants will be assigned a letter in the alphabet 
+Is a vector of length equal to the number of listed plants
+
+\item[\code{timesteps}] The number of 'turns' that you want the simulation to exectute. (defaul: 50)
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+a plant matrix; empty cells contain only '', waterlogged cells contain Na,  
+and cells containing plants will have the indicated (or assigned) name.
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
+\end{ExampleCode}
+\end{Examples}
+\inputencoding{utf8}
+\HeaderA{make.terrain}{Terrain with elivations represented by numerics in each cell}{make.terrain}
+%
+\begin{Description}\relax
+Makes a matrix which is filled according to the diamond step algorithm.
+Altitude is represented by values in each cell. Cells with NA are waterlogged.
+
+This is a wrapper around \code{diamond.square.step} and \code{add.water}
+\end{Description}
+%
+\begin{Usage}
+\begin{verbatim}
+make.terrain(n = 6, water = TRUE, sd = 15)
+\end{verbatim}
+\end{Usage}
+%
+\begin{Arguments}
+\begin{ldescription}
+\item[\code{n}] Determines the size of the grid. Grid will be 2\textasciicircum{}n +1 with a default of n=6
+
+\item[\code{water}] a logical to indicate whether terrain lower than 0 should be underwater (default:TRUE)
+
+\item[\code{sd}] the random noise to be added to each step of diamond.square.step
+\end{ldescription}
+\end{Arguments}
+%
+\begin{Value}
+a terrain matrix; numeric elements indicate height, NAs indicate cells filled with water
+\end{Value}
+%
+\begin{Examples}
+\begin{ExampleCode}
+terry <- make.terrain(4, 15)
+image(terry)
+
+\end{ExampleCode}
+\end{Examples}
+\printindex{}
+\end{document}

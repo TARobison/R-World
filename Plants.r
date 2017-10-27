@@ -12,10 +12,11 @@
 #'          If no names are provided, plants will be assigned a letter in the alphabet 
 #'          Is a vector of length equal to the number of listed plants
 #' @param timesteps The number of 'turns' that you want the simulation to exectute. (defaul: 50)
+#' @param terrain The matrix that simulates landscape. Generated from make.terrain
 #' @return a plant matrix; empty cells contain only '', waterlogged cells contain Na,  
 #'          and cells containing plants will have the indicated (or assigned) name. 
 #' @examples 
-#' plants <- make.plants(terrain, c(.7,.85), repro=c(.95,.55), names=NULL, 50)
+#' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export
 
 make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL, timesteps=50){

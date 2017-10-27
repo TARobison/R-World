@@ -1,10 +1,10 @@
 Package: RWorld
 Type: Package
-Title: What the package does (short line)
+Title: R World Package
 Version: 1.0
 Date: 2017-10-26
-Author: Who wrote it
-Maintainer: Who to complain to <yourfault@somewhere.net>
-Description: More about what it does (maybe more than one line)
-License: What license is it under?
+Author: Tanner Robison, God
+Maintainer: <yahboi_yaweh@yahwho.com>
+Description: This program makes a matrix to represent terrain, fills it with plants, breathes life into the unliving. 
+License: GPL-3
 RoxygenNote: 6.0.1

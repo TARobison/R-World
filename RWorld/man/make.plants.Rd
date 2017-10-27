@@ -30,5 +30,5 @@ terrain.r. Plants survive and reproduce in terrain that has a height 0 <=
 Ensure that you have the same length of vectors for params repro, survive and names!!
 }
 \examples{
-plants <- make.plants(terrain, c(.7,.85), repro=c(.95,.55), names=NULL, 50)
+plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 }

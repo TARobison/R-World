@@ -1,0 +1,74 @@
+
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
+Platform: x86_64-pc-linux-gnu (64-bit)
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "RWorld"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('RWorld')
+> 
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("make.plants")
+> ### * make.plants
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: make.plants
+> ### Title: Generate plants to exist, reproduce, and compete within the
+> ###   terrain
+> ### Aliases: make.plants
+> 
+> ### ** Examples
+> 
+> plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("make.terrain")
+> ### * make.terrain
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: make.terrain
+> ### Title: Terrain with elivations represented by numerics in each cell
+> ### Aliases: make.terrain
+> 
+> ### ** Examples
+> 
+> terry <- make.terrain(4, 15)
+> image(terry)
+> 
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  76.265 0.093 77.937 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')
