@@ -84,14 +84,3 @@ make.terrain <- function(n=6, water=TRUE, sd=15){
     return(terrain)
 
 }
-
-
-# wrapper.terrain <- function(n, sd, water=TRUE){
-    
-#     terry <- diamond.square.step(n,sd)
-    
-#     if(water == TRUE)
-#         terry[terry<0] <- NA
-#     image(terry,col=ifelse(terry[terry == NA], "blue", ifelse(terrain.colors(3))))
-#     dev.off()
-# }

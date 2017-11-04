@@ -22,7 +22,7 @@
 #' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export
 
-make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL, timesteps=50){
+make.plants <- function(terrain, survive=c(.6,.85), repro=c(.95,.45),names=NULL, timesteps=50){
 
     comp.mat <- matrix(c(survive, rev(survive)), length(survive),length(survive))
 
@@ -75,12 +75,9 @@ make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL,
         info <- setup.plants(repro, survive, comp.mat, names) 
         random.x.val <- sample(1:ncol(terrain),length(terrain)*.1,replace=TRUE)
         random.y.val <- sample(1:ncol(terrain),length(terrain)*.1,replace=TRUE)
+        #
         for(i in 1:length(random.x.val)){
-            choose.species <- sample(1:2,1)
-            if(choose.species == 1)
-                plants[random.x.val[i],random.y.val[i],1] <- info$names[[1]]
-            else
-                plants[random.x.val[i],random.y.val[i],1] <- info$names[[2]]
+            plants[random.x.val[i],random.y.val[i],1] <- sample(info$names,1)
         }
         for(i in seq_len(dim(plants)[3])){ 
             plants[,,i][is.na(terrain)] <- NA
@@ -133,3 +130,4 @@ make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL,
     plant.plot <- run.plant.ecosystem(terrain, comp.mat, survive, repro, names, timesteps)
     return(plant.plot)
 }
+make.plants(make.terrain(3,15))
