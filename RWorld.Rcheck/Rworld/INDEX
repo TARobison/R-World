@@ -1,0 +1,4 @@
+make.plants             Generate plants to exist, reproduce, and
+                        compete within the terrain
+make.terrain            Terrain with elivations represented by numerics
+                        in each cell

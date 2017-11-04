@@ -8,6 +8,8 @@ make.plants(terrain, survive = c(0.7, 0.85), repro = c(0.95, 0.55),
   names = NULL, timesteps = 50)
 }
 \arguments{
+\item{terrain}{The matrix that simulates landscape. Generated from make.terrain}
+
 \item{survive}{The rate of survival of the listed plants. (default: .8, .65)
 Is a vector of length equal to the number of listed plants}
 

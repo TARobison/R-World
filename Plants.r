@@ -15,6 +15,9 @@
 #' @param terrain The matrix that simulates landscape. Generated from make.terrain
 #' @return a plant matrix; empty cells contain only '', waterlogged cells contain Na,  
 #'          and cells containing plants will have the indicated (or assigned) name. 
+#' @importFrom stats rnorm
+#' @importFrom stats runif
+#' @importFrom stats setNames
 #' @examples 
 #' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export
@@ -36,7 +39,7 @@ make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL,
         rownames(comp.mat) <- names
         return(list(repro=repro, survive=survive, comp.mat=comp.mat, names=names))
     }
-
+    
     survival <- function(cell, info){  
         if(is.na(cell)){
             cell <- NA
