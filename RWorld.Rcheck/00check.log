@@ -1,8 +1,9 @@
-* using log directory ‘/mnt/c/Users/tanner/Documents/GitHub/R-World/Rworld.Rcheck’
-* using R version 3.0.2 (2013-09-25)
+* using log directory ‘/mnt/c/Users/tanner/Documents/GitHub/R-World/RWorld.Rcheck’
+* using R version 3.2.3 (2015-12-10)
 * using platform: x86_64-pc-linux-gnu (64-bit)
 * using session charset: UTF-8
-* checking for file ‘Rworld/DESCRIPTION’ ... OK
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘RWorld/DESCRIPTION’ ... OK
 * checking extension type ... Package
 * this is package ‘Rworld’ version ‘1.0’
 * checking package namespace information ... OK
@@ -43,3 +44,5 @@
 * checking Rd contents ... OK
 * checking for unstated dependencies in examples ... OK
 * checking examples ... OK
+* DONE
+Status: OK

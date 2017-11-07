@@ -18,6 +18,8 @@
 #' @importFrom stats rnorm
 #' @importFrom stats runif
 #' @importFrom stats setNames
+#' @importFrom stats mean 
+#' @importFrom stats median
 #' @examples 
 #' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export

@@ -18,11 +18,13 @@
 #' @importFrom stats rnorm
 #' @importFrom stats runif
 #' @importFrom stats setNames
+#' @importFrom stats mean 
+#' @importFrom stats median
 #' @examples 
 #' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export
 
-make.plants <- function(terrain, survive=c(.6,.85), repro=c(.95,.45),names=NULL, timesteps=50){
+make.plants <- function(terrain, survive=c(.6,.8), repro=c(.98,.5),names=NULL, timesteps=50){
 
     comp.mat <- matrix(c(survive, rev(survive)), length(survive),length(survive))
 
@@ -77,7 +79,7 @@ make.plants <- function(terrain, survive=c(.6,.85), repro=c(.95,.45),names=NULL,
         random.y.val <- sample(1:ncol(terrain),length(terrain)*.1,replace=TRUE)
         #
         for(i in 1:length(random.x.val)){
-            plants[random.x.val[i],random.y.val[i],1] <- sample(info$names,1)
+            plants[random.x.val[i],random.y.val[i],1] <- sample(info$names,1, prob= info$repro)
         }
         for(i in seq_len(dim(plants)[3])){ 
             plants[,,i][is.na(terrain)] <- NA
@@ -130,4 +132,4 @@ make.plants <- function(terrain, survive=c(.6,.85), repro=c(.95,.45),names=NULL,
     plant.plot <- run.plant.ecosystem(terrain, comp.mat, survive, repro, names, timesteps)
     return(plant.plot)
 }
-make.plants(make.terrain(3,15))
+make.plants(make.terrain(4,15))
