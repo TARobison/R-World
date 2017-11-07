@@ -3,8 +3,6 @@
 export(make.plants)
 export(make.terrain)
 importFrom(graphics,image)
-importFrom(stats,mean)
-importFrom(stats,median)
 importFrom(stats,rnorm)
 importFrom(stats,runif)
 importFrom(stats,setNames)
