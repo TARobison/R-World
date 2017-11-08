@@ -22,7 +22,7 @@
 #' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export
 
-make.plants <- function(terrain, survive=c(.7,.85), repro=c(.95,.55),names=NULL, timesteps=50){
+make.plants <- function(terrain, survive=c(.6,.8), repro=c(.98,.5),names=NULL, timesteps=50){
 
     comp.mat <- matrix(c(survive, rev(survive)), length(survive),length(survive))
 
