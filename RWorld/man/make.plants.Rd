@@ -4,7 +4,7 @@
 \alias{make.plants}
 \title{Generate plants to exist, reproduce, and compete within the terrain}
 \usage{
-make.plants(terrain, survive = c(0.7, 0.85), repro = c(0.95, 0.55),
+make.plants(terrain, survive = c(0.6, 0.8), repro = c(0.98, 0.5),
   names = NULL, timesteps = 50)
 }
 \arguments{
