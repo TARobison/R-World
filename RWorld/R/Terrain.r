@@ -9,8 +9,9 @@
 #' @param sd the random noise to be added to each step of diamond.square.step
 #' 
 #' @return a terrain matrix; numeric elements indicate height, NAs indicate cells filled with water
-#' @importFrom stats rnorm
-#' @importFrom graphics image
+#' @importFrom stats rnorm setNames median na.omit
+#' @importFrom graphics image 
+#' @importFrom grDevices dev.off terrain.colors
 #' @examples 
 #' terry <- make.terrain(4, 15)
 #' image(terry)
@@ -84,14 +85,3 @@ make.terrain <- function(n=6, water=TRUE, sd=15){
     return(terrain)
 
 }
-
-
-# wrapper.terrain <- function(n, sd, water=TRUE){
-    
-#     terry <- diamond.square.step(n,sd)
-    
-#     if(water == TRUE)
-#         terry[terry<0] <- NA
-#     image(terry,col=ifelse(terry[terry == NA], "blue", ifelse(terrain.colors(3))))
-#     dev.off()
-# }

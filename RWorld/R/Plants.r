@@ -17,12 +17,15 @@
 #'          and cells containing plants will have the indicated (or assigned) name. 
 #' @importFrom stats rnorm
 #' @importFrom stats runif
-#' @importFrom stats setNames
+#' @importFrom stats setNames median na.omit
+#' @importFrom grDevices dev.off terrain.colors
 #' @examples 
 #' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export
 
-make.plants <- function(terrain, survive=c(.6,.8), repro=c(.98,.5),names=NULL, timesteps=50){
+#the default life history parameters are meant to represent r vs k selection repoductive strategies. 
+
+make.plants <- function(terrain, survive=c(.6,.85), repro=c(.98,.53),names=NULL, timesteps=50){
 
     comp.mat <- matrix(c(survive, rev(survive)), length(survive),length(survive))
 
@@ -75,12 +78,9 @@ make.plants <- function(terrain, survive=c(.6,.8), repro=c(.98,.5),names=NULL, t
         info <- setup.plants(repro, survive, comp.mat, names) 
         random.x.val <- sample(1:ncol(terrain),length(terrain)*.1,replace=TRUE)
         random.y.val <- sample(1:ncol(terrain),length(terrain)*.1,replace=TRUE)
+        #
         for(i in 1:length(random.x.val)){
-            choose.species <- sample(1:2,1)
-            if(choose.species == 1)
-                plants[random.x.val[i],random.y.val[i],1] <- info$names[[1]]
-            else
-                plants[random.x.val[i],random.y.val[i],1] <- info$names[[2]]
+            plants[random.x.val[i],random.y.val[i],1] <- sample(info$names,1, prob= info$repro)
         }
         for(i in seq_len(dim(plants)[3])){ 
             plants[,,i][is.na(terrain)] <- NA

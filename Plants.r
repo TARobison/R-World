@@ -17,10 +17,14 @@
 #'          and cells containing plants will have the indicated (or assigned) name. 
 #' @importFrom stats rnorm
 #' @importFrom stats runif
-#' @importFrom stats setNames
+#' @importFrom stats setNames median na.omit
+#' @importFrom grDevices dev.off terrain.colors
 #' @examples 
 #' plants <- make.plants(make.terrain(6,15), c(.7,.85), repro=c(.95,.55), names=NULL, 50)
 #' @export
+
+#the default life history parameters are meant to represent r vs k selection repoductive strategies. 
+
 
 make.plants <- function(terrain, survive=c(.6,.85), repro=c(.98,.53),names=NULL, timesteps=50){
 
@@ -130,4 +134,3 @@ make.plants <- function(terrain, survive=c(.6,.85), repro=c(.98,.53),names=NULL,
     plant.plot <- run.plant.ecosystem(terrain, comp.mat, survive, repro, names, timesteps)
     return(plant.plot)
 }
-make.plants(make.terrain(4,15))

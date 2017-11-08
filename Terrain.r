@@ -9,8 +9,9 @@
 #' @param sd the random noise to be added to each step of diamond.square.step
 #' 
 #' @return a terrain matrix; numeric elements indicate height, NAs indicate cells filled with water
-#' @importFrom stats rnorm
-#' @importFrom graphics image
+#' @importFrom stats rnorm setNames median na.omit
+#' @importFrom graphics image 
+#' @importFrom grDevices dev.off terrain.colors
 #' @examples 
 #' terry <- make.terrain(4, 15)
 #' image(terry)

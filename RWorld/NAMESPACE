@@ -2,7 +2,11 @@
 
 export(make.plants)
 export(make.terrain)
+importFrom(grDevices,dev.off)
+importFrom(grDevices,terrain.colors)
 importFrom(graphics,image)
+importFrom(stats,median)
+importFrom(stats,na.omit)
 importFrom(stats,rnorm)
 importFrom(stats,runif)
 importFrom(stats,setNames)
